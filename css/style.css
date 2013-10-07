@@ -1,0 +1,271 @@
+/******************************
+* Grobal Element 
+******************************/
+
+@font-face {
+  font-family: 'fontello';
+  src: url("../font/fontello.eot");
+  src: url("../font/fontello.eot?57098116#iefix")format('embedded-opentype'),
+  		 url("../font/fontello.woff")format('woff'),
+  		 url("../font/fontello.ttf") format('truetype'),
+  		 url("../font/fontello.svg#fontello") format('svg');
+}
+
+/* Reset Default Style */
+*{
+	color: #333;
+}
+ul, li{
+	list-style: none;
+}
+
+input, textarea{
+	border: none;
+	padding: 0px;
+	background-color: transparent;
+}
+
+body{
+	background-color: #FAFAFA;
+	font-family: "Hiragino Kaku Gothic Pro" monospace;
+	font-family: Helvetica, Arial;
+	width: 100%;
+	font-size: 15px;
+	font-weight: bold;
+	word-wrap: break-word;
+}
+
+article{
+	position: relative;
+	width: 100%;
+	height: 460px;
+	margin: 0 auto;
+}
+
+article section{
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 460px;
+	background-color: #736357;
+}
+
+
+/******************************
+* Common Settings
+******************************/
+.abs{ position: absolute; }
+
+.show{ display: block; }
+.hide{
+	display: none;
+	z-index: 1;
+	opacity: 0.0;
+}
+
+.menu{
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	display: box;
+	display: -webkit-box;
+	box-pack:justify;
+	-webkit-box-pack:justify;
+	width: 100%;
+	height: 44px;
+	overflow: hidden;
+	z-index: 100;
+}
+
+.btn{
+	display: block;
+	height: 30px;
+	color: #FAFAFA;
+	font-family:'fontello';
+	font-size: 16px;
+	text-align: center;
+	line-height: 30px;
+}
+
+.date{
+	font-size: 12px;
+}
+
+time{}
+
+
+/******************************
+* List View Element
+******************************/
+#list-view{}
+
+#list-view .menu{
+	background-color: #736357;
+}
+
+#category-title{
+	color: #FAFAFA;
+	font-size: 16px;
+	line-height: 44px;
+	text-align: center;
+}
+
+#reload{
+	margin: 7px 0 0 7px; 
+	width: 48px;
+}
+
+#new-note1{
+	margin: 7px 7px 0 0 ; 
+	width: 32px;
+}
+
+#list{
+	top: 44px;
+	left: 0px;
+	width: 100%;
+}
+
+#list li{
+	display: block;
+	box-sizing: border-box;
+	overflow: hidden;
+	padding: 8px 16px 8px 16px;
+}
+#list li:nth-child(odd){
+	background-color: #FAFAFA;
+}
+#list li:nth-child(even){
+	background-color: #d3d3d3;
+	/*background-color: #F0F0F0;*/
+}
+
+
+
+#list li .note-title{
+	padding-bottom: 8px;
+	border-bottom: 2px #ccc dotted;
+	/*background-color:  #f5f5f5;*/
+	line-height: 1.6;
+}
+
+
+#list li time{
+	padding-top: 8px;
+	float: right;
+	color: #999;
+	font-size: 10px;
+}
+
+/******************************
+* Note View Element
+******************************/
+#note-view{
+	background-color: #FAFAFA;
+}
+#note-view .menu{
+	background-color: #FAFAFA;
+	border-bottom: 1px solid #ccc;
+}
+
+#close-note{
+	margin: 7px 0 0 7px;
+	width: 64px;
+}
+#close-note.return{
+	color: #736357;
+}
+#close-note.save{
+	color: #68A2FF;
+}
+
+#delete-note{
+	color: #FF6666;
+	font-size: 18px;
+	margin: 7px 7px 0 0 ;
+	width:  64px;
+}
+
+
+#note{
+	top: 44px;
+	left: 0px;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 8px 16px;
+}
+
+#note #note-date{
+	font-size: 10px;
+	margin-bottom: 8px;
+}
+
+
+#note h1{
+	padding-bottom: 8px;
+	border-bottom: 2px solid #333;
+}
+
+#note h1 #note-title{
+	font-size: 18px;
+	width: 100%;
+}
+
+#note #note-content{
+	width: 100%;
+	min-height: 300px;
+	margin-top: 16px;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+
+/******************************
+* Loading View Element
+******************************/
+#loading-view{
+	z-index: 200;
+	background-color: rgba(255,255,255, 0.5);
+}
+
+#loading-view p{
+	text-align: center;
+	color: #333;
+}
+
+#loading-view .loading-icon{
+	margin-top: 60%;
+	font-family:'fontello';
+	font-size: 24px;
+}
+#loading-view .loading-icon:before{
+	content: 'i';
+}
+
+.animate-spin {
+	-webkit-animation: spin 2s infinite linear;
+	animation: spin 2s infinite linear;
+/*	display: inline-block;*/
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+#load-msg{
+	margin-top: 20px;
+	color: #FFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+
