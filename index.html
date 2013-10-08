@@ -14,11 +14,15 @@
 	<div id="wrapper">
 
 		<!-- MenuView -->
-		<div id="menu_view" class="is-hidden">
-			<!-- <h1 id="category-title">
+		<div id="menu_view" class="is-hidden" data-mode="list">
+			<button id="js-reloadPage" class="btn btn--reload">R<i class="icon icon--relaod"></i></button>
+			<button id="js-backList" class="btn btn--return">B<i class="icon icon--return"></i></button>
+			<h1 id="menu_view__title">
 				<span id="menu_view__title">すべてのノート</span>
 				(<span id="menu_view__count">0</span>)
-			</h1> -->
+			</h1>
+			<button id="js-addNew" class="btn btn--add">N<i class="icon icon--add"></i></button>
+			<button id="js-deleteNote" class="btn btn--delete">D<i class="icon icon--delete"></i></button>
 		</div>
 
 		<!-- ListView -->
