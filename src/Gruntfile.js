@@ -49,7 +49,7 @@ module.exports = function (grunt) {
             },
             stylus: {
                 src: [ '<%= paths.css.src %>/*.styl' ],
-                dest: '<%= paths.css.dest %>/dist/style.styl'
+                dest: '<%= paths.css.src %>/dist/style.styl'
             }
         },
 
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
         stylus: {
             files: {
                 expand: true,
-                cwd: '<%= paths.css.dest %>/dist',
+                cwd: '<%= paths.css.src %>/dist',
                 src: ['**/*.styl'],
                 dest: '<%= paths.css.dest %>',
                 ext: '.css'

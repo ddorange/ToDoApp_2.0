@@ -39,28 +39,28 @@ app.button = (function(){
     ReloadButton = ButtonView.extend({
         el: '#js-reloadPage',
         handleClick: function() {
-            
+            console.log('reloadPage');
         }
     });
     
     AddButton = ButtonView.extend({
         el: '#js-addNew',
         handleClick: function() {
-            
+            console.log('js-addNew');
         }
     });
     
     BackButton = ButtonView.extend({
         el: '#js-backList',
         handleClick: function() {
-            
+            console.log('backList');
         }
     });
 
     DeleteButton = ButtonView.extend({
         el: '#js-deleteNote',
         handleClick: function() {
-            
+            console.log('deleteNote');
         }
     });
 

@@ -23,33 +23,20 @@ time, mark, audio, video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  
   // ADD: 要素を選択させないようにする
   -webkit-user-select: none;
   user-select: none;
   cursor: pointer;
 }
 
- /* HTML5 display-role reset for older browsers */
+/* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
 
-html {
-  // ADD: デフォルトスタイル
-  font-size: 62.5%;
-}
-
 body {
   line-height: 1;
-
-  // ADD: デフォルトスタイル
-  background-color: @bgWhite;
-  color: @grayDark;
-  font-family: sans-serif;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
-  font-size: 1.4rem;
 }
 
 ol, ul {
@@ -70,25 +57,3 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
-
-// ADD: デフォルトスタイル
-a {
-  text-decoration: none;
-  color: @linkColor;
-}
-
-img {
-  border: none;
-  vertical-align: bottom;
-}
-
-button {
-  border: none;
-  cursor: pointer;
-}
-
-i {
-  font-style: normal
-}
-

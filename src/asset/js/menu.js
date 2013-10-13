@@ -9,11 +9,12 @@ app.menu = (function(){
 
     MenuModel = Backbone.Model.extend({
         defaults: {
-            MODE: {
+            title: 'すべてのノート',
+            state: '',
+            STATE_VALUE: {
                 LIST: 'list',
                 DETAIL: 'detail'
-            },
-            currentMode: ''
+            }
             // TODO: カテゴリー機能を実装する
             // , category:        ['すべてのノート'],
             // currentCategory: null,
@@ -22,50 +23,48 @@ app.menu = (function(){
 
     MenuView = Backbone.View.extend({
         el:     '#menu_view',
-        titleEl: null,
+        STATE_CLASS: {
+            LIST: 'menu__list',
+            DETAIL: 'menu__detail'
+        },
+        $titleEl: null,
         btnEl:  {
-            list: null,
-            detail: null
+            list:  { left: null, right: null},
+            detail: { left: null, right: null}
         },
-        events: {
-            'click #js-reloadPage': 'reloadPage',
-            'click #js-addNew': 'addNew',
-            'click #js-backList': 'backList',
-            'click #js-deleteNote': 'deleteNote'
-        },
+        events: {},
+        
         initialize: function() {
-            console.log(this.model);
-            this.titleEl      = $('#menu_view__title');
-            this.btnEl.list   = [ $('#js-reloadPage'), $('#js-addNew') ];
-            this.btnEl.detail = [ $('#js-backList'), $('#js-deleteNote') ];
-            // this.model.on('change:currentMode', this.render, this);
+            this.titleEl = this.$('#menu_view__title');
+            this.btnEl.list.left    = new app.button.ReloadButton();
+            this.btnEl.list.right   = new app.button.AddButton();
+            this.btnEl.detail.left  = new app.button.BackButton();
+            this.btnEl.detail.right = new app.button.DeleteButton();
+            this.model.on('change:state', this.changeState, this);
         },
+        /**
+         * メニュー部品（クラス・タイトル・ボタン）の表示更新
+         *
+         */
         render: function() {
-            switch (this.model.currentMode) {
+            var clas;
+
+            // クラスの変更
+            switch(this.model.state) {
                 case 'list':
-                    this.btnEl.lidt.each(function($el){
-                        $el.removeClass('is--hidden');
-                    },this);
+                    clas = STATE_CLASS.LIST;
                     break;
                 case 'detail':
-                    break;
-                default:
-                    console.log('error');
+                    clas = STATE_CLASS.DETAIL;
                     break;
             }
+            this.$el.addClass( clas );
+            // タイトルの表示更新
+            this.$titleEl.text( this.model.get('title') );
+
+            // ボタンの表示更新: いまのことろCSSで管理
+
             return this;
-        },
-        reloadPage: function(e) {
-            console.log('reloadPage');
-        },
-        addNew: function() {
-            console.log('addNew');
-        },
-        backList: function() {
-            console.log('backList');
-        },
-        deleteNote: function() {
-            console.log('deleteNote');
         }
     });
 

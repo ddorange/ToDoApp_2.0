@@ -7,26 +7,29 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<!-- CSS -->
-	<link rel="stylesheet" type="text/css" href="css/html5reset-1.6.1.css">
-	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	<div id="wrapper">
+	<div class="wrapper pos-rel">
 
 		<!-- MenuView -->
-		<div id="menu_view" class="is-hidden" data-mode="list">
-			<button id="js-reloadPage" class="btn btn--reload">R<i class="icon icon--relaod"></i></button>
-			<button id="js-backList" class="btn btn--return">B<i class="icon icon--return"></i></button>
-			<h1 id="menu_view__title">
+		<div id="menu_view" class="menu menu__list pos-fix" data-mode="list">
+			
+			<button id="js-reloadPage" class="btn btn--reload">i<i class="icon icon--relaod"></i></button>
+			<button id="js-backList" class="btn btn--return">j<i class="icon icon--return"></i></button>
+
+			<h1 id="menu_view__title" class="menu--title">
 				<span id="menu_view__title">すべてのノート</span>
 				(<span id="menu_view__count">0</span>)
 			</h1>
-			<button id="js-addNew" class="btn btn--add">N<i class="icon icon--add"></i></button>
-			<button id="js-deleteNote" class="btn btn--delete">D<i class="icon icon--delete"></i></button>
+			
+			<button id="js-addNew" class="btn btn--add">d<i class="icon icon--add"></i></button>
+			<button id="js-deleteNote" class="btn btn--delete">h<i class="icon icon--delete"></i></button>
+		
 		</div>
 
 		<!-- ListView -->
-		<ul id="list_view" class="is-hidden">
+		<ul id="list_view" class="list_view is-hidden">
 			<!-- NoteView : <li> -->
 			<script type='text/template' id="tmp-note_view">
 				<p class="note_view__title"><%- title %></p>
@@ -49,9 +52,9 @@
 		</div>
 
 	</div>
-<script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
-<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/underscore.string/2.3.3/underscore.string.min.js'></script>
-<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js'></script>
+<script type='text/javascript' src='js/lib/jquery.js'></script>
+<script type='text/javascript' src='js/lib/underscore.js'></script>
+<script type='text/javascript' src='js/lib/backbone.js'></script>
 <script type="text/javascript" src="asset/js/util.js" ></script>
 <script type='text/javascript' src='asset/js/button.js'></script>
 <script type='text/javascript' src='asset/js/menu.js'></script>
