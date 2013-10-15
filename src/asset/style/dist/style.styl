@@ -97,17 +97,20 @@ body
 /* ## Base */
 // ### color
 color_bg = #FAFAFA
+color_bg_dark = #ddd
 color_theme = #736357
+
+color_font_default = #333
+color_font_gray = #999
 
 // ### Mixin
 vendor(prop, args)
 	-webkit-{prop} args
 	{prop} args
 
-display-box(pack = justify)
+display-box()
 	display box
 	display -webkit-box
-	vendor(box-pack, pack)
 
 // ### button
 .btn
@@ -122,7 +125,7 @@ display-box(pack = justify)
 
 
 /* ## Layout */
-.pos-abs 
+.pos-abs
 	position absolute
 .pos-rel
 	position relative
@@ -131,14 +134,17 @@ display-box(pack = justify)
 
 .tac
 	text-align center
-
+.tal
+	text-align left
+.tar
+	text-align right
 
 /* ## State */
 .is-show
 	display block 
 
 .is-hidden
-	display none
+	// display none
 	// z-index 1
 	// opacity 0.0
 
@@ -151,9 +157,10 @@ display-box(pack = justify)
 
 /* ## menu */
 .menu
+	display-box()
+	vendor(box-pack, justify)
 	top 0px
 	left 0px
-	display-box()
 	width 100%
 	height 44px
 	overflow hidden
@@ -161,8 +168,18 @@ display-box(pack = justify)
 
 	&.menu__list
 		background-color color_theme
+		.btn--reload, .btn--add
+			display block
+		.btn--return, .btn--delete
+			display none
+
 	&.menu__detail
 		background-color color_bg
+		.btn--reload, .btn--add
+			display none
+		.btn--return, .btn--delete
+			display block
+
 
 	.menu--title
 		color color_bg
@@ -170,8 +187,29 @@ display-box(pack = justify)
 		font-weight bold
 		line-height 44px
 
-.date
-	font-size 12px
+
+.list_view
+	top 44px
+	left 0px
+	width 100%
+	.list__item:nth-child(odd)
+		background-color color_bg_dark
+	.list__item:nth-child(even)
+		background-color color_bg
+
+.list__item
+	vendor(box-sizing, border-box)
+	min-height 44px
+	padding 10px 6px
+
+.list__item__title
+	font-size 1.6rem
+	font-weight bold
+
+.list__item__date
+	display block
+	color color_font_gray
+	font-size 1.2rem
 
 
 /******************************

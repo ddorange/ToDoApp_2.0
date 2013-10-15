@@ -82,7 +82,7 @@ app.note = (function(){
 
     NoteView = Backbone.View.extend({
         tagName: 'li',
-        className: 'note',
+        className: 'list__item',
         template: _.template( $('#tmp-note_view').html() ),
         events: {
             'click .deleteBtn': 'destroyModel',

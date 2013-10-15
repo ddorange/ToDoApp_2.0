@@ -16,24 +16,24 @@
 		<div id="menu_view" class="menu menu__list pos-fix" data-mode="list">
 			
 			<button id="js-reloadPage" class="btn btn--reload">i<i class="icon icon--relaod"></i></button>
-			<button id="js-backList" class="btn btn--return">j<i class="icon icon--return"></i></button>
+			<button id="js-backList" class="btn btn--return">h<i class="icon icon--return"></i></button>
 
 			<h1 id="menu_view__title" class="menu--title">
 				<span id="menu_view__title">すべてのノート</span>
 				(<span id="menu_view__count">0</span>)
 			</h1>
 			
-			<button id="js-addNew" class="btn btn--add">d<i class="icon icon--add"></i></button>
-			<button id="js-deleteNote" class="btn btn--delete">h<i class="icon icon--delete"></i></button>
+			<button id="js-addNew" class="btn btn--add">j<i class="icon icon--add"></i></button>
+			<button id="js-deleteNote" class="btn btn--delete">d<i class="icon icon--delete"></i></button>
 		
 		</div>
 
 		<!-- ListView -->
-		<ul id="list_view" class="list_view is-hidden">
+		<ul id="list_view" class="list_view is-hidden pos-abs">
 			<!-- NoteView : <li> -->
 			<script type='text/template' id="tmp-note_view">
-				<p class="note_view__title"><%- title %></p>
-				<time class="date"><%- created %></time>
+				<p class="list__item__title"><%- title %></p>
+				<time class="list__item__date tar"><%- created %></time>
 			</script>
 			<!-- </li> -->
 		</ul>
