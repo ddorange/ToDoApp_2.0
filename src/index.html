@@ -14,18 +14,14 @@
 
 		<!-- MenuView -->
 		<div id="menu_view" class="menu menu__list pos-fix" data-mode="list">
-			
 			<button id="js-reloadPage" class="btn btn--reload">i<i class="icon icon--relaod"></i></button>
 			<button id="js-backList" class="btn btn--return">h<i class="icon icon--return"></i></button>
-
 			<h1 id="menu_view__title" class="menu--title">
 				<span id="menu_view__title">すべてのノート</span>
 				(<span id="menu_view__count">0</span>)
 			</h1>
-			
 			<button id="js-addNew" class="btn btn--add">j<i class="icon icon--add"></i></button>
 			<button id="js-deleteNote" class="btn btn--delete">d<i class="icon icon--delete"></i></button>
-		
 		</div>
 
 		<!-- ListView -->
@@ -39,7 +35,7 @@
 		</ul>
 
 		<!-- DetailView -->
-		<div id="note_view" class="is-hidden">
+		<div id="js-note_view" class="is-hidden">
 			<p id="note_view__date"></p>
 			<input id="note_view__title" type="text" placeholder="タイトル（50文字以内）" maxlength="50">
 			<textarea id="note_view__body" placeholder="本文（200文字以内）" maxlength="200"></textarea>
@@ -55,10 +51,11 @@
 <script type='text/javascript' src='js/lib/jquery.js'></script>
 <script type='text/javascript' src='js/lib/underscore.js'></script>
 <script type='text/javascript' src='js/lib/backbone.js'></script>
+<script type='text/javascript' src='js/lib/backbone.localStorage.js'></script>
 <script type="text/javascript" src="asset/js/util.js" ></script>
-<script type='text/javascript' src='asset/js/button.js'></script>
-<script type='text/javascript' src='asset/js/menu.js'></script>
-<script type='text/javascript' src='asset/js/note.js'></script>
+<script type='text/javascript' src='asset/js/model.js'></script>
+<script type='text/javascript' src='asset/js/collection.js'></script>
+<script type='text/javascript' src='asset/js/view.js'></script>
 <script type='text/javascript' src='asset/js/app.js'></script>
 </body>
 </html>
