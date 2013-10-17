@@ -37,14 +37,28 @@ app.model = (function(){
     MenuModel = Backbone.Model.extend({
         defaults: {
             title: 'すべてのノート',
-            state: '',
-            STATE_VALUE: {
-                LIST: 'list',
-                DETAIL: 'detail'
-            }
+            state: '',              // 'list' or 'detail'
             // TODO: カテゴリー機能を実装する
             // , category:        ['すべてのノート'],
             // currentCategory: null,
+        },
+        STATE: {
+            LIST: 'list',
+            DETAIL: 'detail'
+        },
+        changeState: function(){
+            var current = this.get('state');
+            
+            switch(current){
+            case this.STATE.LIST:
+                this.set('state', this.STATE.DETAIL);
+                break;
+            case this.STATE.DETAIL:
+                this.set('state', this.STATE.LIST);
+                break;
+            default:
+                break;
+            }
         }
     });
 

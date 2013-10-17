@@ -8,7 +8,7 @@ app.collection = (function(){
 
     NoteCollection = Backbone.Collection.extend({
         model: app.model.NoteModel,
-        localStorage: new Backbone.LocalStorage("App")
+        localStorage: new Backbone.LocalStorage('App')
     });
 
     return {

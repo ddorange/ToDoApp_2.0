@@ -10,32 +10,41 @@ app.view = (function(){
         DetailView,
         MenuView;
 
-    // ただのコントローラー化する？
     AppView = Backbone.View.extend({
         menu:   null,
         list:   null,
         detail: null,
+        events: {
+            'CLICK_ADD_NEW': 'addNewNote'
+        },
         
         initialize: function(){
-            var menuModel;
-
             // メニューの作成
-            menuModel = new app.model.MenuModel();
+            var menuModel = new app.model.MenuModel();
             this.menu = new app.view.MenuView( {model: menuModel} );
 
             // 一覧画面の作成
             this.list = new app.view.ListView( {collection: this.collection} );
 
             // 詳細画面の作成
-            this.detail = new app.view.DetailView();
+            this.detail = new app.view.DetailView( {collection: this.collection} );
 
-            this.listenTo(this.collection, 'add', this.addOne);
-            this.listenTo(this.collection, 'reset', this.addAll);
-            this.listenTo(this.collection, 'all', this.render);
+            // this.listenTo(this.collection, 'add', this.addNewNote);
+            // this.listenTo(this.collection, 'reset', this.addAll);
+            // this.listenTo(this.collection, 'all', this.render);
+
+            // アプリケーションの起動開始
+            this.collection.fetch();
+        },
+        addNewNote: function(model){
+            // var view = new app.view.NoteView( {model: model} );
+            // this.$el.append( view.render().el );
+            // 
+            // メニューの表示更新
+            // this.menu.changeState();
         }
     });
     /**
-     *
      * メニューバーのView
      * 
      */
@@ -47,20 +56,17 @@ app.view = (function(){
         },
         $titleEl: null,
         events: {
-            'click .btn--reload': 'reload',
-            'click .btn--return': 'back',
-            'click .btn--add':    'addNew',
-            'click .btn--delete': 'deleteOne'
+            'click .btn--reload': '_reload',
+            'click .btn--return': '_back',
+            'click .btn--add':    '_addNew',
+            'click .btn--delete': '_deleteOne'
         },
         initialize: function() {
             this.$titleEl = this.$('#menu_view__title');
-            this.model.on('change:state', this.changeState, this);
-            this.listenTo(this.collection, 'add', this.addNew);
+            // this.model.on('change:state', this.render, this);
         },
         /**
-         *
          * メニュー部品（クラス・タイトル・ボタン）の表示更新
-         *
          */
         render: function() {
             var clas;
@@ -83,27 +89,22 @@ app.view = (function(){
 
             return this;
         },
-
+        changeState: function(){
+            this.model.changeState();
+        },
         // Active Functions
-        reload: function(){
-            console.log('reload');
-            // window.location.reload(true);
+        _reload: function(){
+            window.location.reload(true);
         },
-        addNew: function(){
+        _addNew: function(){
             console.log('addNew');
-            this.collection.createNew();
+            trigger();
         },
-        back: function(){
+        _back: function(){
             console.log('back');
         },
-        deleteOne: function(){
+        _deleteOne: function(){
             console.log('deleteOne');
-        },
-
-        // Passive Functions 
-        addNew: function(model){
-            var view = new app.view.NoteView( {model: model} );
-            this.$el.append( view.render().el );
         }
     });
     /**
@@ -120,11 +121,7 @@ app.view = (function(){
         },
         
         initialize: function(){
-            var menuModel = new app.model.MenuModel();
-            
-            this.menu = new app.view.MenuView( {model: menuModel} );
-
-            // イベントリスナの設定
+            this.listenTo(this.collection, 'add', this.addNewNote);
             // this.collection.on('add', this.addNew, this);
             // this.collection.on('change', this.updateCount, this);
             // this.collection.on('destroy', this.updateCount, this);
@@ -180,7 +177,7 @@ app.view = (function(){
             return this;
         },
         showDetail: function(){
-            var detailView = new app.view.DetailView( this.model );
+            // var detailView = new app.view.DetailView( this.model );
         },
         destroyModel: function() {
             if ( confirm('削除しますか？') ) {
