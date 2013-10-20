@@ -1,13 +1,11 @@
-var app = app || {};
-    
-app.collection = (function(){
+App.Collection = (function(){
 
     'use strict';
 
     var NoteCollection;
 
     NoteCollection = Backbone.Collection.extend({
-        model: app.model.NoteModel,
+        model: App.Model.NoteModel,
         localStorage: new Backbone.LocalStorage('App')
     });
 

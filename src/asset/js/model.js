@@ -1,6 +1,4 @@
-var app = app || {};
-    
-app.model = (function(){
+App.Model = (function(){
 
     'use strict';
 

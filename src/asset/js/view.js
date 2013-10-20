@@ -1,60 +1,18 @@
-var app = app || {};
-    
-app.view = (function(){
+App.View = (function(){
 
     'use strict';
 
-    var AppView,
-        ListView,
+    var ListView,
         NoteView,
         DetailView,
         MenuView;
 
-    AppView = Backbone.View.extend({
-        menu:   null,
-        list:   null,
-        detail: null,
-        events: {
-            'CLICK_ADD_NEW': 'addNewNote'
-        },
-        
-        initialize: function(){
-            // メニューの作成
-            var menuModel = new app.model.MenuModel();
-            this.menu = new app.view.MenuView( {model: menuModel} );
 
-            // 一覧画面の作成
-            this.list = new app.view.ListView( {collection: this.collection} );
-
-            // 詳細画面の作成
-            this.detail = new app.view.DetailView( {collection: this.collection} );
-
-            // this.listenTo(this.collection, 'add', this.addNewNote);
-            // this.listenTo(this.collection, 'reset', this.addAll);
-            // this.listenTo(this.collection, 'all', this.render);
-
-            // アプリケーションの起動開始
-            this.collection.fetch();
-        },
-        addNewNote: function(model){
-            // var view = new app.view.NoteView( {model: model} );
-            // this.$el.append( view.render().el );
-            // 
-            // メニューの表示更新
-            // this.menu.changeState();
-        }
-    });
-    /**
-     * メニューバーのView
-     * 
-     */
     MenuView = Backbone.View.extend({
-        el:     '#menu_view',
         CLAS: {
-            LIST: 'menu__list',
+            LIST:   'menu__list',
             DETAIL: 'menu__detail'
         },
-        $titleEl: null,
         events: {
             'click .btn--reload': '_reload',
             'click .btn--return': '_back',
@@ -63,7 +21,10 @@ app.view = (function(){
         },
         initialize: function() {
             this.$titleEl = this.$('#menu_view__title');
-            // this.model.on('change:state', this.render, this);
+            this.model = new App.Model.MenuModel();
+
+            // イベントリスナーの設定
+            this.model.on('change:state', this.render, this);
         },
         /**
          * メニュー部品（クラス・タイトル・ボタン）の表示更新
@@ -92,81 +53,67 @@ app.view = (function(){
         changeState: function(){
             this.model.changeState();
         },
-        // Active Functions
         _reload: function(){
             window.location.reload(true);
         },
         _addNew: function(){
             console.log('addNew');
-            trigger();
+            App.Mediator.trigger('OPRN_NOTE');
         },
         _back: function(){
             console.log('back');
+            App.Mediator.trigger('BACK_LIST_VIEW');
         },
         _deleteOne: function(){
             console.log('deleteOne');
+            App.Mediator.trigger('DELETE_NOTE');
         }
     });
     /**
-     *
-     *
-     *
+     * 一覧表示画面
      *
      */
     ListView = Backbone.View.extend({
-        el: '#list_view',
-        menu: null,
-        events: {
+        events: {},
 
-        },
-        
         initialize: function(){
-            this.listenTo(this.collection, 'add', this.addNewNote);
-            // this.collection.on('add', this.addNew, this);
-            // this.collection.on('change', this.updateCount, this);
-            // this.collection.on('destroy', this.updateCount, this);
+            this.collection = new App.Collection.NoteCollection();
+            
+            // イベントリスナーの設定
+            this.listenTo(this.collection, 'add', this.addNote);
+
+            // サーバーからデータを取得
+            this.collection.fetch();
         },
         render: function() {
             // 個々のタスクの表示
-            this.collection.each(function (noteModel) {
-                var noteView = new NoteView( {model: noteModel} );
+            this.collection.each(function (_model) {
+                var noteView = new NoteView( {model: _model} );
                 this.$el.append( noteView.render().el );
             }, this);
             
-            // ノート数の表示を更新
-            this.updateCount();
-            
             return this;
         },
-        addNew: function(noteModel) {
-            var noteView = new NoteView( {model: noteModel} );
-
-            // ノートを追加する
+        /**
+         * ノートを追加する
+         */
+        addNote: function(_model) {
+            var noteView = new NoteView({model: _model});
             this.$el.prepend( noteView.render().el );
-
-            // ノート数の表示を更新
-            this.updateCount();
-
-            // 入力エリアのリセット
-            // $('#title').val('').focus();
-        },
-        updateCount: function() {
-            // $('#count').html( this.collection.length );
         }
     });
     /**
-     *
-     * 個別のノートのView
-     *
+     * 個別のノート
      *
      */
     NoteView = Backbone.View.extend({
         tagName: 'li',
         className: 'list__item',
-        template: _.template( $('#tmp-note_view').html() ),
+        template: _.template( $('#tmp-note').html() ),
         events: {
             'click': 'showDetail'
         },
+
         initialize: function() {
             this.model.on('destroy', this.remove, this);
             this.model.on('change', this.render, this);
@@ -177,30 +124,49 @@ app.view = (function(){
             return this;
         },
         showDetail: function(){
-            // var detailView = new app.view.DetailView( this.model );
-        },
-        destroyModel: function() {
-            if ( confirm('削除しますか？') ) {
-                this.model.destroy();
-            }
+            // App.Mediator.trigger('OPEN_NOTE', this.model);
         },
         remove: function() {
             this.$el.remove();
         }
     });
     /**
-     *
-     * ノートの詳細画面のView
-     * @model 詳細を表示するNoteのModel
+     * 詳細表示画面
      *
      */
     DetailView = Backbone.View.extend({
-        el: '#js-note_view'
+        template: _.template($('#tmp-detail').html()),
+
+        initialize: function() {
+            // イベントリスナーの設定
+            App.Mediator.on('OPEN_NOTE', this.render, this);
+            App.Mediator.on('BACK_LIST_VIEW',   this.remove, this);
+            App.Mediator.on('DELETE_NOTE', this.destroy, this);
+        },
+        render: function(_model){
+            conosle.log('DetailView_render');
+            this.model = _model || new App.Model.NoteModel();
+
+            var content = this.template( this.model.toJSON() );
+            this.$el.html(content);
+            this.removeClass('is-hidden');
+            return this;
+        },
+        destroy: function(){
+            // ノートの削除
+            conosle.log('DetailView_destroy');
+        },
+        remove: function() {
+            conosle.log('DetailView_remove');
+            // 一覧画面へ戻る
+            // > ノートの更新確認
+            // > ノートの保存
+            // this.$el.removeChild();
+        }
     });
-    
-    
+
+
     return {
-        AppView:    AppView,
         MenuView:   MenuView,
         ListView:   ListView,
         NoteView:   NoteView,

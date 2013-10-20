@@ -13,7 +13,7 @@
 	<div id="app" class="wrapper pos-rel">
 
 		<!-- MenuView -->
-		<div id="menu_view" class="menu menu__list pos-fix" data-mode="list">
+		<div id="js-menu_view" class="menu menu__list pos-fix" data-mode="list">
 			<button id="js-reloadPage" class="btn btn--reload">i<i class="icon icon--relaod"></i></button>
 			<button id="js-backList" class="btn btn--return">h<i class="icon icon--return"></i></button>
 			<h1 id="menu_view__title" class="menu--title">
@@ -25,9 +25,9 @@
 		</div>
 
 		<!-- ListView -->
-		<ul id="list_view" class="list_view is-hidden pos-abs">
+		<ul id="js-list_view" class="list_view is-hidden pos-abs">
 			<!-- NoteView : <li> -->
-			<script type='text/template' id="tmp-note_view">
+			<script type='text/template' id="tmp-note">
 				<p class="list__item__title"><%- title %></p>
 				<time class="list__item__date tar"><%- created %></time>
 			</script>
@@ -35,27 +35,42 @@
 		</ul>
 
 		<!-- DetailView -->
-		<div id="js-note_view" class="is-hidden">
-			<p id="note_view__date"></p>
-			<input id="note_view__title" type="text" placeholder="タイトル（50文字以内）" maxlength="50">
-			<textarea id="note_view__body" placeholder="本文（200文字以内）" maxlength="200"></textarea>
+		<div id="js-detail_view" class="is-hidden">
+			<script type='text/template' id="tmp-detail">
+			<p id="note_view__date"><%- created %></p>
+			<input id="note_view__title" value="<%- title %>" type="text" placeholder="タイトル（50文字以内）" maxlength="50">
+			<textarea id="note_view__body" placeholder="本文（200文字以内）" maxlength="200">
+				<%- body %>
+			</textarea>
+			</script>
 		</div>
 
 		<!-- LoadingView -->
-		<div id="loading_view">
+		<div id="js-loading_view">
 			<p id="loading_view__icon " class="animate-spin"></p>
 			<p id="loading_view__msg" class="tac"></p>
 		</div>
 
 	</div>
+<!-- JS library -->
 <script type='text/javascript' src='js/lib/jquery.js'></script>
 <script type='text/javascript' src='js/lib/underscore.js'></script>
 <script type='text/javascript' src='js/lib/backbone.js'></script>
 <script type='text/javascript' src='js/lib/backbone.localStorage.js'></script>
+<!-- JS -->
+<script type="text/javascript" src="asset/js/namespace.js" ></script>
 <script type="text/javascript" src="asset/js/util.js" ></script>
 <script type='text/javascript' src='asset/js/model.js'></script>
 <script type='text/javascript' src='asset/js/collection.js'></script>
 <script type='text/javascript' src='asset/js/view.js'></script>
 <script type='text/javascript' src='asset/js/app.js'></script>
+<script>
+$(function(){
+    'use strict';
+
+    new App.Main();
+
+});
+</script>
 </body>
 </html>
