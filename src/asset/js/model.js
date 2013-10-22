@@ -28,6 +28,12 @@ App.Model = (function(){
             if ( _.isEmpty(attrs.body) ) {
                 return '本文を入力してください';
             }
+        },
+        saveData: function(title, body){
+            this.save({ title: title, body: body });
+            console.log('aaa');
+            return true;
+            // return this.save({ title: title, body: body });
         }
     });
 
@@ -35,7 +41,7 @@ App.Model = (function(){
     MenuModel = Backbone.Model.extend({
         defaults: {
             title: 'すべてのノート',
-            state: '',              // 'list' or 'detail'
+            state: ''              // 'list' or 'detail'
             // TODO: カテゴリー機能を実装する
             // , category:        ['すべてのノート'],
             // currentCategory: null,
@@ -44,17 +50,21 @@ App.Model = (function(){
             LIST: 'list',
             DETAIL: 'detail'
         },
+        initialize: function(){
+            this.set('state', this.STATE.LIST);
+        },
         changeState: function(){
-            var current = this.get('state');
-            
-            switch(current){
+            console.log(this.get('state'));
+            switch(this.get('state')){
             case this.STATE.LIST:
                 this.set('state', this.STATE.DETAIL);
                 break;
             case this.STATE.DETAIL:
+                console.log('一覧画面に変更');
                 this.set('state', this.STATE.LIST);
                 break;
             default:
+                console.log('change_state_failed');
                 break;
             }
         }

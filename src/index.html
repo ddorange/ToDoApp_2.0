@@ -25,7 +25,7 @@
 		</div>
 
 		<!-- ListView -->
-		<ul id="js-list_view" class="list_view is-hidden pos-abs">
+		<ul id="js-list_view" class="list_view pos-abs is-hidden">
 			<!-- NoteView : <li> -->
 			<script type='text/template' id="tmp-note">
 				<p class="list__item__title"><%- title %></p>
@@ -35,14 +35,12 @@
 		</ul>
 
 		<!-- DetailView -->
-		<div id="js-detail_view" class="is-hidden">
-			<script type='text/template' id="tmp-detail">
-			<p id="note_view__date"><%- created %></p>
-			<input id="note_view__title" value="<%- title %>" type="text" placeholder="タイトル（50文字以内）" maxlength="50">
-			<textarea id="note_view__body" placeholder="本文（200文字以内）" maxlength="200">
-				<%- body %>
-			</textarea>
-			</script>
+		<div id="js-detail_view" class="detail_view pos-abs is-hidden">
+		<script type='text/template' id="tmp-detail">
+			<p class="detail__date">作成日<%- created %></p>
+			<input id="js-detail_title" class="detail__title" value="<%- title %>" type="text" placeholder="タイトル（50文字以内）" maxlength="50">
+			<textarea id="js-detail_body" class="detail__body" placeholder="本文（200文字以内）" maxlength="200"><%- body %></textarea>
+		</script>
 		</div>
 
 		<!-- LoadingView -->
