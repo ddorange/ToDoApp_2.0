@@ -20,18 +20,18 @@ App.View = (function(){
             'click .btn--delete': '_delete'
         },
         initialize: function() {
-            this.$titleEl = this.$('#menu_view__title');
+            // プロパティのセット
             this.model = new App.Model.MenuModel();
+            this.$titleEl = this.$('#menu_view__title');
 
             // イベントリスナーの設定
             this.model.on('change', this.render, this);
-            App.Mediator.on('OPEN_NOTE', this.changeState, this);
+            App.Mediator.on('CHANGE_MENU_STATE', this.changeState, this);
         },
         /**
          * メニュー部品（クラス・タイトル・ボタン）の表示更新
          */
         render: function() {
-            var clas;
 
             // クラスの変更
             this.$el.toggleClass(this.CLAS.LIST);
@@ -45,7 +45,6 @@ App.View = (function(){
             return this;
         },
         changeState: function(){
-            console.log('changeState');
             this.model.changeState();
         },
         _reload: function(){
@@ -55,7 +54,6 @@ App.View = (function(){
             App.Mediator.trigger('OPEN_NOTE');
         },
         _back: function(){
-            this.changeState();
             App.Mediator.trigger('BACK_LIST_VIEW');
         },
         _delete: function(){
@@ -70,15 +68,19 @@ App.View = (function(){
         events: {},
 
         initialize: function(){
+            //　プロパティのセット
             this.collection = new App.Collection.NoteCollection();
             
             // イベントリスナーの設定
             this.listenTo(this.collection, 'add', this.addNote);
+            App.Mediator.on('CHANGE_MENU_STATE', this.toggleDisplay, this);
             App.Mediator.on('RELOAD', this._update, this);
             App.Mediator.on('SAVE_NOTE', function(m){
                 this._update(m);
             }, this);
-            this._update();
+            
+            this.collection.fetch();
+            this.render();
         },
         render: function() {
             console.log(this.collection.length);
@@ -93,6 +95,9 @@ App.View = (function(){
             
             return this;
         },
+        toggleDisplay: function(){
+            this.$el.toggleClass('is-hidden');
+        },
         /**
          * ノートを追加する
          */
@@ -105,7 +110,7 @@ App.View = (function(){
          */
         _update: function(_model){
             this.collection.set(_model);
-            // this.collection.fetch();
+            
             this.render();
         }
     });
@@ -132,6 +137,7 @@ App.View = (function(){
         },
         showDetail: function(){
             App.Mediator.trigger('OPEN_NOTE', this.model);
+            App.Mediator.trigger('CHANGE_MENU_STATE');
         },
         remove: function() {
             this.$el.remove();
@@ -146,7 +152,11 @@ App.View = (function(){
 
         initialize: function() {
             // イベントリスナーの設定
-            App.Mediator.on('OPEN_NOTE', this.render, this);
+            App.Mediator.on('CHANGE_MENU_STATE', this.toggleDisplay, this);
+            App.Mediator.on('OPEN_NOTE', function(){
+                App.Mediator.trigger('CHANGE_MENU_STATE');
+                this.render();
+            }, this);
             App.Mediator.on('BACK_LIST_VIEW', this.back, this);
             App.Mediator.on('DELETE_NOTE', this.destroy, this);
         },
@@ -162,6 +172,9 @@ App.View = (function(){
             this.$el.removeClass('is-hidden');
             
             return this;
+        },
+        toggleDisplay: function(){
+            this.$el.toggleClass('is-hidden');
         },
         /**
          *
@@ -179,8 +192,8 @@ App.View = (function(){
 
             if ( this.model.set({title: title, body: body}, {validate: true}) ) {
                 this.$el.empty();
-                this.$el.addClass('is-hidden');
                 App.Mediator.trigger('SAVE_NOTE', this.model);
+                App.Mediator.trigger('CHANGE_MENU_STATE');
             }
             // 新規作成したノートなら保存
             // 既存のノートなら更新
