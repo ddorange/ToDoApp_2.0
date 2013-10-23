@@ -18,7 +18,7 @@ App.Model = (function(){
         initialize: function(){
             this.on('invalid', function(_model, _error){
                 // バリデートのエラー処理
-                // $('#error').html(_error);
+                alert(_error);
             });
         },
         validate: function(attrs) {
@@ -30,10 +30,7 @@ App.Model = (function(){
             }
         },
         saveData: function(title, body){
-            this.save({ title: title, body: body });
-            console.log('aaa');
-            return true;
-            // return this.save({ title: title, body: body });
+            // return this.create({ title: title, body: body });
         }
     });
 

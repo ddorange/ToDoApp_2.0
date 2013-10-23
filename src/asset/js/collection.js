@@ -6,12 +6,11 @@ App.Collection = (function(){
 
     NoteCollection = Backbone.Collection.extend({
         model: App.Model.NoteModel,
-        localStorage: new Backbone.LocalStorage('App')
+        localStorage: new Backbone.LocalStorage('noteApp')
     });
 
     return {
         NoteCollection: NoteCollection
     };
-
 
 })();
