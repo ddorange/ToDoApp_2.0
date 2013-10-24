@@ -1,31 +1,28 @@
 # French Vanilla Note
 
 ## アプリケーション構造
-### \#1.0 View
-#### 1.1 MenuView
-トップメニューのView。
-~~子にButtonViewを持つ~~
+#### \# View
+1. MenuView  
+  トップメニューのView。~~子にButtonViewを持つ~~
+   - ButtonView~~  
+     ボタンのView。各ボタンはこのViewクラスのインスタンスとして作成する
 
-#### ~~1.1.a ButtonView~~
+2. ListView  
+   ノートの一覧画面のView。リスト形式でノートを表示する
+   - NoteView  
+     リストのView
 
+3. DetailView  
+   詳細画面のView
 
-#### 1.2 ListView
-ノートの一覧画面のView。リスト形式でノートを表示する
-
-##### 1.2.a NoteView
-リストのView
-
-#### 1.3. DetailView
-詳細画面のView
-
-### \#2. Model
+#### \# Model
 1. MenuModel
 2. NoteModel
 
-### \#3. Collection
+#### \# Collection
 1. NoteCollection
 
-### \#4. Mediator(Global_Event)
+#### \# Mediator(Global_Event)
 - CHANGE_STATE
 - RELOAD
 - OPEN_NOTE
@@ -44,4 +41,6 @@ App {
 }
 ```
 
-## スクリーンショット
+## アプリケーション画面
+![](https://dl.dropboxusercontent.com/u/22299541/screenshot.png)
+
