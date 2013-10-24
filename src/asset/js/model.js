@@ -38,26 +38,23 @@ App.Model = (function(){
     MenuModel = Backbone.Model.extend({
         defaults: {
             title: 'すべてのノート',
-            state: ''              // 'list' or 'detail'
+            state: '' // 'list' or 'detail'
             // TODO: カテゴリー機能を実装する
             // , category:        ['すべてのノート'],
             // currentCategory: null,
         },
-        STATE: {
-            LIST: 'list',
-            DETAIL: 'detail'
-        },
+        STATE: { LIST: 'list', DETAIL: 'detail' },
+
         initialize: function(){
             this.set('state', this.STATE.LIST);
         },
         changeState: function(){
-            console.log(this.get('state'));
+            console.log('MenuModel.changeState');
             switch(this.get('state')){
             case this.STATE.LIST:
                 this.set('state', this.STATE.DETAIL);
                 break;
             case this.STATE.DETAIL:
-                console.log('一覧画面に変更');
                 this.set('state', this.STATE.LIST);
                 break;
             default:
