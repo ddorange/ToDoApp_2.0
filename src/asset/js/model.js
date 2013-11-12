@@ -1,84 +1,71 @@
-App.Model = (function(){
+(function(){
 
     'use strict';
 
-    var NoteModel,
-        MenuModel,
-        ButtonModel;
-
-
-    NoteModel = Backbone.Model.extend({
-        defaults: function(){
-            return {
-                title:   _.uniqueId('Note'),
-                body:    'Plese write me ...',
-                created: util.getDate()
-            };
-        },
-        initialize: function(){
-            this.on('invalid', function(_model, _error){
-                // バリデートのエラー処理
-                alert(_error);
-            });
-        },
-        validate: function(attrs) {
-            if ( _.isEmpty(attrs.title) ) {
-                return 'タイトルを入力してください';
-            }
-            if ( _.isEmpty(attrs.body) ) {
-                return '本文を入力してください';
-            }
-        },
-        saveData: function(title, body){
-            // return this.create({ title: title, body: body });
-        }
-    });
-
-
-    MenuModel = Backbone.Model.extend({
+    App.Model.MenuModel = Backbone.Model.extend({
         defaults: {
             title: 'すべてのノート',
-            state: '' // 'list' or 'detail'
-            // TODO: カテゴリー機能を実装する
-            // , category:        ['すべてのノート'],
-            // currentCategory: null,
+            state: 'list'
+            // , category: ['すべてのノート'],
         },
-        STATE: { LIST: 'list', DETAIL: 'detail' },
+        STATE: {
+            LIST: 'list',
+            DETAIL: 'detail'
+        },
+        CATEGORY: {
+            ALL: 'すべてのノート'
+        },
 
         initialize: function(){
-            this.set('state', this.STATE.LIST);
+            this.beList();
         },
-        changeState: function(){
-            console.log('MenuModel.changeState');
-            switch(this.get('state')){
-            case this.STATE.LIST:
-                this.set('state', this.STATE.DETAIL);
-                break;
-            case this.STATE.DETAIL:
-                this.set('state', this.STATE.LIST);
-                break;
-            default:
-                console.log('change_state_failed');
-                break;
+
+        beList: function(){
+            console.log('state be list');
+            this.set('title', this.CATEGORY.ALL);
+            this.set('state', this.STATE.LIST);
+            this.changeState = this.beDetail;
+        },
+
+        beDetail: function(){
+            console.log('state be detail');
+            this.set('title', '');
+            this.set('state', this.STATE.DETAIL);
+            this.changeState = this.beList;
+        }
+    });
+
+
+    App.Model.NoteModel = Backbone.Model.extend({
+        defaults: function(){
+            return {
+                title: 'No Title',
+                content: 'Plese Write Me !!'
+                // created: util.getDate()
+            };
+        },
+
+        initialize: function(){
+            // バリデートのエラー処理
+            this.on('invalid', function(model, error){
+                alert(error);
+            });
+        },
+        
+        validate: function(attrs){
+
+            if ( _.isEmpty(attrs.title) ) {
+                return 'Opps! Title is Empty!';
             }
+            
+            if ( _.isEmpty(attrs.content) ) {
+                return 'Opps! Content is Empty!';
+            }
+        },
+        
+        saveData: function(title, content){
+            // return this.create({ title: title, content: content });
         }
     });
-
-
-    ButtonModel = Backbone.Model.extend({
-        defaults: {
-            el:      null,
-            display: false,
-            action:  function(){}
-        }
-    });
-
-
-    return {
-        NoteModel:    NoteModel,
-        MenuModel:    MenuModel,
-        ButtonModel:  ButtonModel
-    };
-
 
 })();
