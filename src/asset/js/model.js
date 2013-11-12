@@ -21,14 +21,14 @@
         },
 
         beList: function(){
-            console.log('state be list');
+            // console.log('state be list');
             this.set('title', this.CATEGORY.ALL);
             this.set('state', this.STATE.LIST);
             this.changeState = this.beDetail;
         },
 
         beDetail: function(){
-            console.log('state be detail');
+            // console.log('state be detail');
             this.set('title', '');
             this.set('state', this.STATE.DETAIL);
             this.changeState = this.beList;

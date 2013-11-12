@@ -8,7 +8,6 @@
             DETAIL: 'menu__detail'
         },
         events: {
-            'click .btn--reload': '_reload',
             'click .btn--return': '_back',
             'click .btn--add':    '_addNew',
             'click .btn--delete': '_delete'
@@ -27,28 +26,21 @@
             return this;
         },
         
-        _reload: function(){
-            console.log('_reload');
-            this.model.changeState();
-            // App.Router;
-        },
-        
         _addNew: function(){
-            console.log('_addNew');
             this.model.changeState();
-            // App.Router.;
+            Backbone.history.navigate('detail');
         },
         
         _back: function(){
-            console.log('_back');
             this.model.changeState();
-            // App.Router.;
+            Backbone.history.navigate('');
         },
         
         _delete: function(){
-            console.log('_delete');
-            this.model.changeState();
-            // App.Router.;
+            if(confirm('Are you Sure?')){
+                console.log('_delete');
+                // this.model.changeState();
+            }
         }
     });
     /**

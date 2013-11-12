@@ -2,10 +2,19 @@
 
     'use strict';
     
-    App.Router = Backbone.Router.extend({
+    App.Router.appRouter = Backbone.Router.extend({
 
         routes: {
-            '': 'list'
+            '': 'setList',
+            'detail': 'setDetail'
+        },
+
+        setList: function(){
+            console.log('setList');
+        },
+        
+        setDetail: function(){
+            console.log('setDetail');
         }
     });
 
