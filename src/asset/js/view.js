@@ -28,12 +28,13 @@
         
         _addNew: function(){
             this.model.changeState();
-            Backbone.history.navigate('detail');
+            //navigateメソッドのオプションのtriggerはデフォルトでfalseっぽい
+            Backbone.history.navigate('detail', {trigger: true});
         },
         
         _back: function(){
             this.model.changeState();
-            Backbone.history.navigate('');
+            Backbone.history.navigate('', {trigger: true});
         },
         
         _delete: function(){
