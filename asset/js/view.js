@@ -27,9 +27,11 @@
         },
         
         _addNew: function(){
+            // TODO: ボタンのクリックでchangeStateすると
+            //       URLを直接叩かれた時にstateがおかしくなる
             this.model.changeState();
             //navigateメソッドのオプションのtriggerはデフォルトでfalseっぽい
-            Backbone.history.navigate('detail', {trigger: true});
+            Backbone.history.navigate('detail/new', {trigger: true});
         },
         
         _back: function(){
@@ -38,6 +40,7 @@
         },
         
         _delete: function(){
+            Backbone.history.navigate('detail/delete');
             if(confirm('Are you Sure?')){
                 console.log('_delete');
                 // this.model.changeState();
@@ -49,8 +52,6 @@
      *
      */
     App.View.ListView = Backbone.View.extend({
-        events: {},
-
         initialize: function(){
             this.listenTo(this.collection, 'add', this.addOne);
 
@@ -127,7 +128,10 @@
         template: _.template($('#tmp-detail').html()),
 
         initialize: function() {
-            // イベントリスナーの設定
+            this.listenTo(this.collection, 'ADD_NEW_NOTE', this.addNew);
+            this.listenTo(this.collection, 'OPEN_NOTE', this.openNote);
+
+
             // App.Mediator.on('CHANGE_STATE', this.toggleDisplay, this);
             // App.Mediator.on('OPEN_NOTE', this.render, this);
             // App.Mediator.on('BACK_LIST_VIEW', this.back, this);
@@ -136,19 +140,22 @@
         /**
          *
          */
-        render: function(_model){
-            var content;
-
-            this.model = _model || new App.Model.NoteModel();
-            content = this.template( this.model.toJSON() );
+        render: function(){
+            var content = this.template( this.model.toJSON() );
             this.$el.html(content);
-            // this.$el.removeClass('is-hidden');
-            
             return this;
         },
-        toggleDisplay: function(){
-            console.log('DetailView.toggleClass');
-            this.$el.toggleClass('is-hidden');
+        hide: function(){
+            this.$el.addClass('is-hidden');
+        },
+        addNew: function() {
+            this.model = new App.Model.NoteModel();
+            this.collection.add(this.model);
+            this.render();
+        },
+        openNote: function(cid){
+            this.model = this.collection.getNote(cid);
+            this.render();
         },
         /**
          * ノートの削除

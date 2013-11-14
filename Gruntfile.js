@@ -46,10 +46,6 @@ module.exports = function (grunt) {
             js: {
                 src: [ '<%= paths.js.src %>/*.js' ],
                 dest: '<%= paths.js.dest %>/app.js'
-            },
-            stylus: {
-                src: [ '<%= paths.css.src %>/*.styl' ],
-                dest: '<%= paths.css.src %>/dist/style.styl'
             }
         },
 
