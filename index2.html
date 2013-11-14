@@ -6,12 +6,16 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<style>
+		.menu__list .btn--return{ display: none; }
+		.menu__detail .btn--add{ display: none; }
+	</style>
 </head>
 <body>
 	<div id="js-app" class="wrapper pos-rel">
 
 		<!-- MenuView -->
-		<div id="js-menu_view" class="menu menu__list pos-fix" data-mode="list">
+		<div id="js-menu_view" class="menu pos-fix" data-mode="list">
 			<h1 id="menu_view__title" class="menu--title">Vanilla Note Light</h1>
 			<button id="js-backList" class="btn btn--return">return</button>
 			<button id="js-addNew" class="btn btn--add">add</button>
