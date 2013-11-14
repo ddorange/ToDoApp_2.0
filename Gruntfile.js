@@ -25,7 +25,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: '<%= paths.js.src %>/*.js',
-                tasks: ['jshint', 'concat:js']
+                tasks: ['jshint']
             },
             stylus: {
                 files: ['<%= paths.css.src %>/**/*.styl'],
