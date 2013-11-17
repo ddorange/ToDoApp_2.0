@@ -7,34 +7,33 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<style>
-		.menu__list .btn--return{ display: none; }
-		.menu__detail .btn--add{ display: none; }
+		.menu__list #js-return{ display: none; }
+		.menu__detail #js-add{ display: none; }
 	</style>
 </head>
 <body>
-	<div id="js-app" class="wrapper pos-rel">
+	<div id="js-app">
 
 		<!-- MenuView -->
-		<div id="js-menu_view" class="menu pos-fix" data-mode="list">
-			<h1 id="menu_view__title" class="menu--title">Vanilla Note Light</h1>
-			<button id="js-backList" class="btn btn--return">return</button>
-			<button id="js-addNew" class="btn btn--add">add</button>
+		<div id="js-menu_view">
+			<h1>Vanilla Note Light</h1>
+			<button id="js-return">return</button>
+			<button id="js-add">add</button>
 		</div>
 
 		<!-- ListView -->
-		<ul id="js-list_view" class="list_view pos-abs"></ul>
+		<ul id="js-list_view"></ul>
 
 		<!-- DetailView -->
-		<div id="js-detail_view" class="detail_view pos-abs is-hidden" style="display: none;">
-			<input id="js-detail_title" class="detail__title" type="text" placeholder="タイトル（50文字以内）" maxlength="50">
+		<div id="js-detail_view" style="display: none;">
+			<input id="js-detail_title" type="text" placeholder="タイトル（50文字以内）" maxlength="50">
 			<br>
-			<textarea id="js-detail_body" class="detail__body" placeholder="本文（200文字以内）" maxlength="200"></textarea>
+			<textarea id="js-detail_body" placeholder="本文（200文字以内）" maxlength="200"></textarea>
 		</div>
 
 	</div>
 <script type='text/template' id="tmp-note">
 	<p class="list__item__title"><%- title %></p>
-	<time class="list__item__date tar"><%- created %></time>
 </script>
 <!-- JS library -->
 <script type='text/javascript' src='//code.jquery.com/jquery-1.10.2.min.js'></script>
