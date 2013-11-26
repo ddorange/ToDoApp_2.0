@@ -1,5 +1,6 @@
 old_app
 backbone_samole_todo
 node_modules
-src/js/*.js
-src/css/*.css
+js/*.js
+css/*.css
+font/*
